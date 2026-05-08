@@ -1,0 +1,540 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+<title>15 Meses Juntos ❤️</title>
+
+<style>
+
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  -webkit-tap-highlight-color:transparent;
+  font-family:'Segoe UI',sans-serif;
+}
+
+body{
+  overflow-x:hidden;
+  background:linear-gradient(135deg,#ffd6e0,#f8a5c2);
+  min-height:100vh;
+  overflow:hidden;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  padding:15px;
+  position:relative;
+}
+
+/* =========================
+   MINI JUEGO
+========================= */
+
+.container{
+  width:100%;
+  max-width:390px;
+  background:rgba(255,255,255,0.96);
+  border-radius:30px;
+  padding:28px 24px;
+  text-align:center;
+  box-shadow:0 15px 40px rgba(0,0,0,0.2);
+  position:relative;
+  z-index:2;
+  transition:opacity .8s ease;
+}
+
+h1{
+  color:#e91e63;
+  font-size:2rem;
+  margin-bottom:10px;
+}
+
+.photo{
+  width:140px;
+  height:140px;
+  object-fit:cover;
+  border-radius:50%;
+  border:5px solid #f48fb1;
+  margin:18px auto;
+  box-shadow:0 8px 20px rgba(0,0,0,.15);
+}
+
+p{
+  color:#555;
+  line-height:1.7;
+  margin-bottom:18px;
+  font-size:.98rem;
+}
+
+.instruction{
+  font-size:.92rem;
+  color:#777;
+}
+
+.heart{
+  font-size:75px;
+  cursor:pointer;
+  user-select:none;
+  transition:transform .15s ease;
+  display:inline-block;
+  margin-top:10px;
+}
+
+.heart:active{
+  transform:scale(1.2);
+}
+
+#score{
+  margin-top:15px;
+  font-size:1.2rem;
+  color:#d81b60;
+  font-weight:bold;
+}
+
+/* =========================
+   EFECTOS
+========================= */
+
+.floating-heart{
+  position:absolute;
+  pointer-events:none;
+  animation:floatUp 4s linear forwards;
+  z-index:1;
+}
+
+@keyframes floatUp{
+  from{
+    transform:translateY(0) scale(1);
+    opacity:1;
+  }
+
+  to{
+    transform:translateY(-500px) scale(2);
+    opacity:0;
+  }
+}
+
+.confetti{
+  position:absolute;
+  width:10px;
+  height:18px;
+  border-radius:3px;
+  animation:confettiFall 3s linear forwards;
+  z-index:10;
+}
+
+@keyframes confettiFall{
+  0%{
+    transform:translateY(-100px) rotate(0deg);
+    opacity:1;
+  }
+
+  100%{
+    transform:translateY(100vh) rotate(720deg);
+    opacity:0;
+  }
+}
+
+/* =========================
+   CARTA FINAL
+========================= */
+
+.final-letter{
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,.35);
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 30px 18px;
+  opacity: 0;
+  visibility: hidden;
+  transition: .8s ease;
+  z-index: 999;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+.final-letter.show{
+  opacity:1;
+  visibility:visible;
+}
+
+.romantic-card{
+  margin: auto 0;
+  width:100%;
+  max-width:470px;
+  background:linear-gradient(180deg,#fffdf9,#fff5ee);
+  border-radius:35px;
+  overflow:hidden;
+  box-shadow:0 20px 45px rgba(0,0,0,.25);
+  border:3px solid #f5e0d3;
+  animation:cardShow 1s ease;
+}
+
+.top-image-wrapper{
+  display:flex;
+  justify-content:center;
+  padding-top:20px;
+}
+
+.top-image{
+  width:320px;
+  height:320px;
+  border-radius:50%;
+  object-fit:cover;
+  border:6px solid #f7ede6;
+  box-shadow:0 10px 25px rgba(0,0,0,.18);
+}
+
+.romantic-content{
+  padding:30px 30px 40px;
+  text-align:center;
+}
+
+.romantic-content h2{
+  font-size:2.1rem;
+  line-height:1.4;
+  margin-bottom:28px;
+  color:#4d302f;
+  font-family:Georgia,serif;
+  font-weight:500;
+}
+
+.romantic-content p{
+  font-size:1.05rem;
+  line-height:2;
+  color:#5f5a58;
+  margin-bottom:28px;
+}
+
+.romantic-content h3{
+  font-size:2rem;
+  color:#f06292;
+  margin-bottom:25px;
+  font-family:cursive;
+  font-weight:normal;
+}
+
+.romantic-content h4{
+  font-size:2.1rem;
+  line-height:1.4;
+  color:#4b2f2f;
+  margin-bottom:35px;
+  font-family:Georgia,serif;
+  font-weight:500;
+}
+
+.bottom-text{
+  font-size:1rem;
+  font-weight:bold;
+  color:#4d3a36;
+  letter-spacing:1px;
+}
+
+.mini-divider{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:14px;
+  margin:24px 0;
+}
+
+.mini-divider::before,
+.mini-divider::after{
+  content:'';
+  width:90px;
+  height:1px;
+  background:#efb8c3;
+}
+
+.mini-divider span{
+  color:#f06292;
+  font-size:1rem;
+}
+
+@keyframes cardShow{
+  from{
+    opacity:0;
+    transform:translateY(40px) scale(.9);
+  }
+
+  to{
+    opacity:1;
+    transform:translateY(0) scale(1);
+  }
+}
+
+/* =========================
+   RESPONSIVE
+========================= */
+
+@media(max-width:520px){
+
+  .top-image{
+    width:250px;
+    height:250px;
+  }
+
+  .romantic-content{
+    padding:25px 22px 35px;
+  }
+
+  .romantic-content h2{
+    font-size:1.8rem;
+  }
+
+  .romantic-content h3{
+    font-size:1.7rem;
+  }
+
+  .romantic-content h4{
+    font-size:1.8rem;
+  }
+
+  .mini-divider::before,
+  .mini-divider::after{
+    width:55px;
+  }
+
+  h1{
+    font-size:1.7rem;
+  }
+
+  .heart{
+    font-size:70px;
+  }
+}
+
+</style>
+</head>
+
+<body>
+
+<!-- MINI JUEGO -->
+
+<div class="container" id="mainContainer">
+
+  <h1>15 Meses Juntos ❤️</h1>
+
+  <img src="foto.jpg" alt="Nuestra foto" class="photo">
+
+  <p>
+    Mi preciosa 🌷<br>
+    Hoy celebramos nuestros 15 meses juntos
+    y también lo maravillosa mamá que eres 💖
+  </p>
+
+  <p class="instruction">
+    Presiona el corazón 15 veces para desbloquear algo que hice para ti ✨
+  </p>
+
+  <div class="heart" id="heart">❤️</div>
+
+  <div id="score">0 / 15</div>
+
+  <audio id="music" loop>
+    <source src="cancion.mp3" type="audio/mpeg">
+  </audio>
+
+</div>
+
+<!-- CARTA FINAL -->
+
+<div class="final-letter" id="finalLetter">
+
+  <div class="romantic-card">
+
+    <div class="top-image-wrapper">
+      <img src="foto.jpg" alt="Nuestra foto especial" class="top-image">
+    </div>
+
+    <div class="romantic-content">
+
+      <div class="mini-divider">
+        <span>❤</span>
+      </div>
+
+      <h2>
+        Para mi amor,<br>
+        mi compañera de vida 💞
+      </h2>
+
+      <p>
+        Hoy celebramos 15 meses de amor,
+        risas, aprendizajes y momentos inolvidables
+        a tu lado.
+      </p>
+
+      <div class="mini-divider">
+        <span>❤</span>
+      </div>
+
+      <p>
+        También celebro la increíble mamá
+        que eres, tu amor, tu fuerza y
+        la forma tan hermosa en que cuidas
+        a quienes amas 💖
+      </p>
+
+      <div class="mini-divider">
+        <span>❤</span>
+      </div>
+
+      <p>
+        Gracias por elegirme,
+        por tu amor incondicional,
+        por tu paciencia y por llenar
+        mi vida de felicidad ✨
+      </p>
+
+      <div class="mini-divider">
+        <span>❤</span>
+      </div>
+
+      <h3>
+        Te amo más de lo que las palabras pueden decir
+      </h3>
+
+      <h4>
+        Feliz Día de la Madre,<br>
+        mi amor 💗
+      </h4>
+
+      <div class="mini-divider">
+        <span>❤ 15 MESES JUNTOS ❤</span>
+      </div>
+
+    </div>
+
+  </div>
+
+</div>
+
+<script>
+
+let count = 0;
+const target = 15;
+
+const heart = document.getElementById('heart');
+const score = document.getElementById('score');
+const finalLetter = document.getElementById('finalLetter');
+const mainContainer = document.getElementById('mainContainer');
+
+heart.addEventListener('click', () => {
+
+  if(count >= target) return;
+
+  count++;
+
+  score.innerText = `${count} / ${target}`;
+
+  createFloatingHeart();
+
+  heart.style.transform = 'scale(1.25)';
+
+  setTimeout(() => {
+    heart.style.transform = 'scale(1)';
+  },120);
+
+  if(count === target){
+    celebrate();
+  }
+
+});
+
+function createFloatingHeart(){
+
+  const heartEl = document.createElement('div');
+
+  heartEl.classList.add('floating-heart');
+
+  heartEl.innerHTML = '💖';
+
+  heartEl.style.left =
+    Math.random() * window.innerWidth + 'px';
+
+  heartEl.style.top =
+    window.innerHeight - 60 + 'px';
+
+  heartEl.style.fontSize =
+    (Math.random() * 20 + 18) + 'px';
+
+  document.body.appendChild(heartEl);
+
+  setTimeout(() => {
+    heartEl.remove();
+  },4000);
+
+}
+
+function celebrate(){
+
+  for(let i=0; i<120; i++){
+    createConfetti();
+  }
+
+  setTimeout(() => {
+
+    mainContainer.style.opacity = '0';
+
+    setTimeout(() => {
+
+      mainContainer.style.display = 'none';
+
+      finalLetter.classList.add('show');
+
+      music.play().catch(() => {});
+
+    },900);
+
+  },1200);
+
+}
+
+function createConfetti(){
+
+  const confetti = document.createElement('div');
+
+  confetti.classList.add('confetti');
+
+  const colors = [
+    '#ff4081',
+    '#ffd54f',
+    '#7c4dff',
+    '#69f0ae',
+    '#40c4ff',
+    '#ff6e40'
+  ];
+
+  confetti.style.background =
+    colors[Math.floor(Math.random() * colors.length)];
+
+  confetti.style.left =
+    Math.random() * window.innerWidth + 'px';
+
+  confetti.style.animationDuration =
+    (Math.random() * 2 + 2) + 's';
+
+  confetti.style.width =
+    (Math.random() * 8 + 6) + 'px';
+
+  confetti.style.height =
+    (Math.random() * 16 + 10) + 'px';
+
+  document.body.appendChild(confetti);
+
+  setTimeout(() => {
+    confetti.remove();
+  },4000);
+
+}
+
+const music = document.getElementById('music');
+
+</script>
+
+</body>
+</html>
